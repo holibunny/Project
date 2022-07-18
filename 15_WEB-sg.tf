@@ -16,26 +16,22 @@ resource "aws_security_group" "WEB-sg" {
   }
 }
 
-resource "aws_security_group_rule" "WEB-sg_SSH" {
-  type        = "ingress"
-  description = "SSH"
-  from_port   = 22
-  to_port     = 22
-  protocol    = "tcp"
-  security_group_id = "WEB-sg" ## 인바운드 규칙을 추가할 보안그룹 id
-  #   cidr_blocks       = [aws_vpc.example.cidr_block]
-  #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
-  source_security_group_id = aws_security_group.LB-1-sg.id ## 인바운드 규칙의 Source 보안그룹
+resource "aws_security_group_rule" "WEB-sg-SSH" {                 ## 보안그룹 룰 추가
+  type                     = "ingress"                            ## 인바운드 규칙
+  description              = "SSH"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.WEB-sg.id     ## 인바운드 규칙을 추가할 보안그룹 id
+  source_security_group_id = aws_security_group.Bastion-sg.id ## 인바운드 규칙의 Source 보안그룹
 }
 
-resource "aws_security_group_rule" "WEB-sg_HTTP" {
-  type              = "ingress"
-  description       = "HTTP"
-  from_port         = 80
-  to_port           = 80
-  protocol          = "tcp"
-  security_group_id = "WEB-sg" ## 인바운드 규칙을 추가할 보안그룹 id
-  #   cidr_blocks       = [aws_vpc.example.cidr_block]
-  #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
-  source_security_group_id = aws_security_group.Bastion-sg.id ## 인바운드 규칙의 Source 보안그룹
+resource "aws_security_group_rule" "WEB-sg-HTTP" {                 ## 보안그룹 룰 추가
+  type                     = "ingress"                             ## 인바운드 규칙
+  description              = "HTTP"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.WEB-sg.id  ## 인바운드 규칙을 추가할 보안그룹 id
+  source_security_group_id = aws_security_group.LB-1-sg.id ## 인바운드 규칙의 Source 보안그룹
 }

@@ -2,7 +2,7 @@ resource "aws_security_group" "Bastion-sg" {
   name        = "Bastion-sg"
   description = "Allow allow 22"
   vpc_id      = aws_vpc.team_VPC.id
-  ingress {
+  ingress {                             ## 인바운드 규칙
     description      = "SSH"
     from_port        = 22
     to_port          = 22
@@ -13,7 +13,7 @@ resource "aws_security_group" "Bastion-sg" {
     security_groups  = null
     self             = null
   }
-  egress {
+  egress {                              ## 아웃바운드 규칙
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
