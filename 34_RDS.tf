@@ -1,13 +1,12 @@
-#RDS DB 인스턴스 생성
-resource "aws_db_instance" "rds_db" {
+resource "aws_db_instance" "team_rds" {
     allocated_storage = 10
     engine = "mysql"
     engine_version = "8.0.20"
     instance_class = "db.t2.micro"
-    name = "thinggom"
+    name = "teamrds"
     username = "root"
     password = "It12345!"
-    identifier = "thinggom"
+    identifier = "teamrds"
     skip_final_snapshot = true
     db_subnet_group_name = "az-rds-group"
     vpc_security_group_ids = ["${aws_security_group.DB-sg.id}"]
