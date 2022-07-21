@@ -11,5 +11,5 @@ resource "aws_db_instance" "rds_db" {
     skip_final_snapshot = true
     db_subnet_group_name = "az-rds-group"
     vpc_security_group_ids = ["${aws_security_group.DB-sg.id}"]
-    multi_az = true
+    multi_az = true   ## 다중 AZ 옵션
 }
